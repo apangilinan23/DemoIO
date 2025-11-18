@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<section class="container py-5">
+    <div class="row align-items-center gx-5">
+        <div class="col-lg-7">
+            <div class="d-flex flex-wrap gap-2">
+                <a id="getStartedBtn"
+                   class="btn btn-lg btn-primary d-inline-flex align-items-center shadow-sm"
+                   href="/Home/Contacts"
+                   role="button"
+                   aria-label="Get started with ASP.NET Core">
+                    Get Contacts
+                </a>
+
+            </div>
+        </div>
+
+      
+    </div>
+</section>
+
+<style>
+    /* Small, scoped visual polish */
+    #getStartedBtn:focus {
+        outline: 3px solid rgba(13,110,253,0.18);
+        outline-offset: 3px;
+    }
+    .btn-primary {
+        background-image: linear-gradient(120deg, #0d6efd, #4aa3ff);
+        border: none;
+    }
+    .lead { max-width: 55ch; }
+</style>
+
+<script>
+    function openDocs() {
+        window.open('https://learn.microsoft.com/aspnet/core', '_blank', 'noopener,noreferrer');
+    }
+</script>
