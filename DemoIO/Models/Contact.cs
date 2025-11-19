@@ -1,6 +1,6 @@
 ﻿namespace DemoIO.Models
 {
-    public class ContactViewModel
+    public class Contact
     {
         public string Name { get; set; }
 

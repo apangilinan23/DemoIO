@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using DemoIO.Models;
+using DemoIO.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DemoIO.Controllers
@@ -25,14 +26,15 @@ namespace DemoIO.Controllers
 
         public IActionResult Contacts()
         {
-            var result = new List<ContactViewModel>();
+            var result = new List<Contact>();
+            var model = new ContactViewModel();
             using (StreamReader reader = new StreamReader(@"C:\Program Files\Notepad++\db.txt"))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
                     var item = line.Split('|');
-                    result.Add(new ContactViewModel 
+                    result.Add(new Contact 
                     {
                         Name = item[0],
                         Age = int.Parse(item[1]),
@@ -43,7 +45,9 @@ namespace DemoIO.Controllers
                 }
             }
 
-            return View(result);
+            model.Contacts = result;
+
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

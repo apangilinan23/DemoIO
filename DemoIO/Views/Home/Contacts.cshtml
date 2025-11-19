@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ContactViewModel>
+﻿@using DemoIO.ViewModels
+@model ContactViewModel
 
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -8,7 +9,7 @@
         </a>
     </div>
 
-    @if (Model == null || !Model.Any())
+    @if (Model == null || !Model.Contacts.Any())
     {
         <div class="alert alert-secondary" role="status">No contacts to display.</div>
     }
@@ -27,7 +28,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Contacts)
                     {
                         <tr>
                             <td>@item.Name</td>
