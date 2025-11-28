@@ -1,0 +1,5 @@
+Adrian|31|+631111111|Taguig|adrian@yopmail.com
+Pete|25|+63234554|QC|Pete@yopmail.com
+Anna|21|+63234554|Cubao|Anna@yopmail.com
+Miki|18|+63112332|Taguig|miki@yopmail.com
+Picasso|7|63234523|Taguig|casso@cat.com

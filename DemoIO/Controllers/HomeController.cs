@@ -28,7 +28,7 @@ namespace DemoIO.Controllers
         {
             var result = new List<Contact>();
             var model = new ContactViewModel();
-            using (StreamReader reader = new StreamReader(@"C:\Program Files\Notepad++\db.txt"))
+            using (StreamReader reader = new StreamReader(@"Assets/db.txt"))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null)
