@@ -1,0 +1,63 @@
+﻿@model DemoIO.ViewModels.AboutViewModel
+
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body"> 
+                <div class="row g-3">
+                    <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        @{
+                            var initials = "?";
+                            if (!string.IsNullOrWhiteSpace(Model?.Author?.Name))
+                            {
+                                var parts = Model.Author.Name.Split(' ', System.StringSplitOptions.RemoveEmptyEntries);
+                                if (parts.Length >= 2)
+                                {
+                                    initials = (parts[0][0].ToString() + parts[1][0].ToString()).ToUpper();
+                                }
+                                else
+                                {
+                                    initials = parts[0][0].ToString().ToUpper();
+                                }
+                            }
+                        }
+
+                        <div style="width:120px;height:120px;font-size:40px;" class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center">
+                            @initials
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                        <h2 class="card-title">About the Author</h2>
+                        <p class="lead mb-1">@Model?.Author?.Name ?? "Unknown Author"</p>
+                        <p class="text-muted">Age: <strong>@(Model?.Author?.Age.ToString() ?? "—")</strong></p>
+
+                        <hr />
+
+                        <h5 class="mb-3">Education</h5>
+
+                        @if (Model?.EducationList != null && Model.EducationList.Any())
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var edu in Model.EducationList)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-start">
+                                        <div class="ms-2 me-auto">
+                                            <div class="fw-bold">@edu?.SchoolName</div>
+                                        </div>
+                                        <span class="badge bg-secondary rounded-pill">@edu?.Year</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p class="text-muted">No education records available.</p>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer text-muted small">Updated: @DateTime.Now.ToString("MMMM d, yyyy")</div>
+        </div>
+    </div>
+</div>

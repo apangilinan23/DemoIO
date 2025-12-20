@@ -1,17 +1,22 @@
-using System.Diagnostics;
+using DemoIO.Database;
 using DemoIO.Models;
 using DemoIO.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace DemoIO.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ILogger<HomeController> _logger;
+        private readonly MockDbContext _mockDbContext;
+
+        public HomeController(ILogger<HomeController> logger, MockDbContext mockDbContext)
         {
             _logger = logger;
+            _mockDbContext = mockDbContext;
         }
 
         public IActionResult Index()
@@ -21,33 +26,40 @@ namespace DemoIO.Controllers
 
         public IActionResult Privacy()
         {
+
+            return View();
+        }
+
+        public IActionResult About()
+        {
+            var author = new Author();
+            author.Name = "Adrian Pangilinan";
+            author.Age = 31;
+
+            var educationList = new List<Education>();
+            educationList.Add(new Education { Year = 2014, SchoolName = "SLU College" });
+            educationList.Add(new Education { Year = 2010, SchoolName = "SLU High school" });
+
+            var aboutViewModel = new AboutViewModel();
+            aboutViewModel.Author = author;
+            aboutViewModel.EducationList = educationList;
+
+            return View(aboutViewModel);
+        }
+
+        public IActionResult GetSum(int number1, int number2)
+        {
+            ViewBag.Sum = number1 + number2;
             return View();
         }
 
         public IActionResult Contacts()
         {
-            var result = new List<Contact>();
-            var model = new ContactViewModel();
-            using (StreamReader reader = new StreamReader(@"Assets/db.txt"))
-            {
-                string line;
-                while ((line = reader.ReadLine()) != null)
-                {
-                    var item = line.Split('|');
-                    result.Add(new Contact 
-                    {
-                        Name = item[0],
-                        Age = int.Parse(item[1]),
-                        ContactNumber = item[2],
-                        Address = item[3],
-                        Email = item[4]
-                    });
-                }
-            }
 
-            model.Contacts = result;
+            var contacts = _mockDbContext.ClientAddress.Include(c => c.Address).ToList();
 
-            return View(model);
+
+            return null;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
